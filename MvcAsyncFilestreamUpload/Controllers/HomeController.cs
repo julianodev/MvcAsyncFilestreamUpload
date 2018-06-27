@@ -10,23 +10,13 @@ namespace MvcAsyncFilestreamUpload.Controllers
     {
         public static List<DocumentModel> Docs = new List<DocumentModel>();
 
-        public ActionResult Index()
-        {
-            return View();
-        }
+        public ActionResult Index() => View();
 
-        public ActionResult GetFileAsync(int id)
-        {
-            // get your file from the database asnyc...
-            return View();
-        }
-
-        public JsonResult AjaxUpload(
+        public FileUploadJsonResult AjaxUpload(
             HttpPostedFileBase file)
         {
             if (file != null && !string.IsNullOrEmpty(file.FileName))
             {
-                // here you can save your file to the database...
                 var doc = new DocumentModel
                 {
                     Id = Docs.Count + 1,
@@ -38,7 +28,7 @@ namespace MvcAsyncFilestreamUpload.Controllers
             }
 
             if (file == null)
-                return new JsonResult
+                return new FileUploadJsonResult
                 {
                     Data = new
                     {
@@ -46,14 +36,14 @@ namespace MvcAsyncFilestreamUpload.Controllers
                     }
                 };
 
-            return Json(new
+            return new FileUploadJsonResult
             {
-                data = new
+                Data = new
                 {
                     message = System.IO.Path.GetFileName(file.FileName),
                     date = DateTime.Now
                 }
-            }, JsonRequestBehavior.AllowGet);
+            };
         }
 
         public ActionResult UploadForm()

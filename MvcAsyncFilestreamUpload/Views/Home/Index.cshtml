@@ -1,21 +1,16 @@
 ﻿@model MvcAsyncFilestreamUpload.Models.UploadModel
 
-<div id="doclist">
-    @Html.Action("UploadForm")
+    <div id="doclist">
+        @Html.Action("UploadForm")
+    </div>
+
+<div class="container" style="margin-top:20px">
+    <form id="ajaxUploadForm" action="@Url.Action("AjaxUpload", "Home")" method="post" enctype="multipart/form-data">
+        <fieldset class="form">
+            <input type="file" id="fileInput" class="form-control-file border" name="file" />
+            <br />
+            <button type="submit" class="btn btn-danger" id="ajaxUploadButton">Fazer Upload</button>
+        </fieldset>
+    </form>
+
 </div>
-
-<form id="ajaxUploadForm" action="@Url.Action("AjaxUpload", "Home")" method="post" enctype="multipart/form-data">
-    <fieldset class="form">
-        <legend>Async Upload Form</legend>
-        <ol class="last">
-            <li>
-                <label>upload </label>
-                <input type="file" id="fileInput" class="btn ui-button-text-icon-primary" name="file" style="width:317px" />
-            </li>
-            <li>
-                <input class="btn" id="ajaxUploadButton" type="submit" value="Upload" />
-            </li>
-        </ol>
-    </fieldset>
-</form>
-
